@@ -1,0 +1,21 @@
+<ul class="dropdown-menu">
+    {% for item in menu_items %}
+
+        <li class="nav-item dropend">
+            {% if item.children_set %}
+
+                <a class="dropdown-item dropdown-toggle" href="{{ item.get_absolute_url }}" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false"
+                        {% if path == item.get_absolute_url %}style="color: blue"{% endif %}>
+                    {{ item.title }}
+                </a>
+                {% include "menu/menu_render.html" with menu_items=item.children_set path=path %}
+            {% else %}
+                <a class="dropdown-item" href="{{ item.get_absolute_url }}"
+                        {% if path == item.get_absolute_url %}style="color: blue"{% endif %}>
+                    {{ item.title }}
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
